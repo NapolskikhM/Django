@@ -16,11 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from task4.views import main_page, page_circus, page_museum
+from task5.views import sign_up_by_django, sign_up_by_html
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', main_page),
-    path('circus/', page_circus),
-    path('museum/', page_museum)
+    path('', sign_up_by_html),
+    path('django_sign_up/', sign_up_by_django),
 ]
