@@ -1,0 +1,59 @@
+<!-- post_list.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h2>Список постов</h2>
+
+    <!-- вывод постов -->
+    <ul>
+        {% for post in page_posts %}
+            <li>
+                {{ post.author }}
+                <br>
+                {{ post.title }} ({{ post.created_at }})
+                <p>{{ post.content }}</p>
+            </li>
+        {% empty %}
+            <p>Нет постов...</p>
+        {% endfor %}
+    </ul>
+    <br>
+    <br>
+
+
+    <!-- пагинатор -->
+    <div class="paginate">
+    <ul>
+        {% if page_posts.has_previous %}
+            <li><a href="?page=1">  К началу  </a></li>
+            <li><a href="?page={{ page_posts.previous_page_number }}">  Предыдущая  </a></li>
+        {% endif %}
+        <li>{{ page_posts.number }}/{{ paginator.num_pages }}</li>
+        {% if page_posts.has_next %}
+            <li><a href="?page={{ page_posts.next_page_number }}">  Следующая  </a></li>
+            <li><a href="?page={{ paginator.num_pages }}">  К концу  </a></li>
+        {% endif %}
+    </ul>
+    </div>
+    <br>
+    <br>
+
+
+    <!-- число постов на страницу -->
+    <form method="POST">
+        {% csrf_token %}
+        <label for="posts_on_pages">Постов на страницу:</label>
+        <select name="posts_on_pages" id="posts_on_pages">
+          <option value="3">3</option>
+          <option value="5">5</option>
+          <option value="7">7</option>
+          <option value="9">9</option>
+          <option value="11">11</option>
+          <option value="13">13</option>
+        </select>
+        <input type="submit" value="Применить" />
+    </form>
+
+{% endblock %}
